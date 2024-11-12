@@ -27,6 +27,160 @@ public class TennisGameTest {
 		// Assert
 		assertEquals("Initial score incorrect", "love - love", score);		
 	}
+	@Test
+	public void testTennisGame_Player1Wins() throws TennisGameException {
+		//Arrange
+		TennisGame game = new TennisGame();
+		//Act
+		game.player1Scored();
+		game.player1Scored();
+		game.player1Scored();
+		game.player1Scored();
+		String score = game.getScore() ;
+		// Assert
+		assertEquals("Winner not registered", "player1 wins", score);		
+	}
+	@Test
+	public void testTennisGame_Player2Wins() throws TennisGameException {
+		//Arrange
+		TennisGame game = new TennisGame();
+		//Act
+		game.player2Scored();
+		game.player2Scored();
+		game.player2Scored();
+		game.player2Scored();
+		String score = game.getScore() ;
+		// Assert
+		assertEquals("Winner not registered", "player2 wins", score);		
+	}
+	
+	@Test
+	public void testTennisGame_Player1AdvantageWith4Points() throws TennisGameException {
+		//Arrange
+		TennisGame game = new TennisGame();
+		//Act
+		game.player1Scored();
+		game.player1Scored();
+		game.player1Scored();
+		game.player2Scored();
+		game.player2Scored();
+		game.player2Scored();
+		game.player1Scored();
+		String score = game.getScore() ;
+		// Assert
+		assertEquals("Advantage not registered", "player1 has advantage", score);		
+	}
+	
+	@Test
+	public void testTennisGame_Player1AdvantageWithMoreThan4Points() throws TennisGameException {
+		//Arrange
+		TennisGame game = new TennisGame();
+		//Act
+		game.player1Scored();
+		game.player1Scored();
+		game.player1Scored();
+		game.player2Scored();
+		game.player2Scored();
+		game.player2Scored();
+		game.player1Scored();
+		game.player2Scored();
+		game.player1Scored();
+		String score = game.getScore();
+		// Assert
+		assertEquals("Advantage not registered", "player1 has advantage", score);		
+	}
+	
+	@Test
+	public void testTennisGame_Player2AdvantageWith4Points() throws TennisGameException {
+		//Arrange
+		TennisGame game = new TennisGame();
+		//Act
+		game.player1Scored();
+		game.player1Scored();
+		game.player1Scored();
+		game.player2Scored();
+		game.player2Scored();
+		game.player2Scored();
+		game.player2Scored();
+		String score = game.getScore();
+		// Assert
+		assertEquals("Advantage not registered", "player2 has advantage", score);		
+	}
+	
+	@Test
+	public void testTennisGame_Player2AdvantageWithMoreThan4Points() throws TennisGameException {
+		//Arrange
+		TennisGame game = new TennisGame();
+		//Act
+		game.player1Scored();
+		game.player1Scored();
+		game.player1Scored();
+		game.player2Scored();
+		game.player2Scored();
+		game.player2Scored();
+		game.player2Scored();
+		game.player1Scored();
+		game.player2Scored();
+		game.player1Scored();
+		game.player2Scored();
+		String score = game.getScore() ;
+		// Assert
+		assertEquals("Advantage not registered", "player2 has advantage", score);		
+	}
+	
+	@Test
+	public void testTennisGame_Player2LeadingBy1Point() throws TennisGameException {
+		//Arrange
+		TennisGame game = new TennisGame();
+		//Act
+		game.player1Scored();
+		game.player2Scored();
+		game.player2Scored();
+		String score = game.getScore() ;
+		// Assert
+		assertEquals("Score is wrong", "30 - 15", score);		
+	}
+	
+	@Test
+	public void testTennisGame_Player1LeadingBy1Point() throws TennisGameException {
+		//Arrange
+		TennisGame game = new TennisGame();
+		//Act
+		game.player1Scored();
+		game.player1Scored();
+		game.player2Scored();
+		String score = game.getScore() ;
+		// Assert
+		assertEquals("Score is wrong", "15 - 30", score);		
+	}
+	
+	@Test
+	public void testTennisGame_Player2LeadingBy2Points() throws TennisGameException {
+		//Arrange
+		TennisGame game = new TennisGame();
+		//Act
+		game.player1Scored();
+		game.player2Scored();
+		game.player2Scored();
+		game.player2Scored();
+		String score = game.getScore() ;
+		// Assert
+		assertEquals("Score is wrong", "40 - 15", score);		
+	}
+	
+	@Test
+	public void testTennisGame_Player1LeadingBy2Points() throws TennisGameException {
+		//Arrange
+		TennisGame game = new TennisGame();
+		//Act
+		game.player1Scored();
+		game.player1Scored();
+		game.player2Scored();
+		game.player1Scored();
+		String score = game.getScore() ;
+		// Assert
+		assertEquals("Score is wrong", "15 - 40", score);		
+	}
 	
 	@Test
 	public void testTennisGame_EahcPlayerWin4Points_Score_Deuce() throws TennisGameException {
@@ -49,6 +203,24 @@ public class TennisGameTest {
 		assertEquals("Tie score incorrect", "deuce", score);		
 	}
 	
+	@Test
+	public void testTennisGame_EahcPlayerWin3Points_Score_Deuce() throws TennisGameException {
+		//Arrange
+		TennisGame game = new TennisGame();
+		
+		game.player1Scored();
+		game.player1Scored();
+		game.player1Scored();
+		
+		game.player2Scored();
+		game.player2Scored();
+		game.player2Scored();
+		//Act
+		String score = game.getScore() ;
+		// Assert
+		assertEquals("Tie score incorrect", "deuce", score);		
+	}
+	
 	@Test (expected = TennisGameException.class)
 	public void testTennisGame_Player1WinsPointAfterGameEnded_ResultsException() throws TennisGameException {
 		//Arrange
@@ -61,5 +233,18 @@ public class TennisGameTest {
 		//Act
 		// This statement should cause an exception
 		game.player1Scored();			
-	}		
+	}
+	@Test (expected = TennisGameException.class)
+	public void testTennisGame_Player2WinsPointAfterGameEnded_ResultsException() throws TennisGameException {
+		//Arrange
+		TennisGame game = new TennisGame();
+		//Act
+		game.player2Scored();
+		game.player2Scored();
+		game.player2Scored();
+		game.player2Scored();
+		//Act
+		// This statement should cause an exception
+		game.player2Scored();			
+	}	
 }
